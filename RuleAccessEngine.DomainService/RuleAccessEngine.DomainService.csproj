@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="DynamicExpresso.Core" Version="2.19.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
   </ItemGroup>
 
   <ItemGroup>

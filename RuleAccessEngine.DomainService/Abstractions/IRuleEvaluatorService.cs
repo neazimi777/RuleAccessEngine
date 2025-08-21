@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RuleAccessEngine.DomainService.Abstractions
 {
-    public interface IRuleEvaluator
+    public interface IRuleEvaluatorService
     {
         public AccessDecision Evaluate(RuleDto rule, AccessRequestDto request);
     }

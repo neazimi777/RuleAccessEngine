@@ -4,6 +4,6 @@ namespace RuleAccessEngine.DomainService.Abstractions
 {
     public interface IRuleEvaluatorFactory
     {
-        IRuleEvaluator Create(RuleDto rule);
+        IRuleEvaluatorService Create(RuleDto rule);
     }
 }

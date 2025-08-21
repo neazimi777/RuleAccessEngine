@@ -5,7 +5,7 @@ using System.Data;
 
 namespace RuleAccessEngine.DomainService.EvaluatorStrategy
 {
-    public class ExpressionRuleEvaluator : IRuleEvaluator
+    public class ExpressionRuleEvaluator : IRuleEvaluatorService
     {
         public AccessDecision Evaluate(RuleDto rule, AccessRequestDto request)
         {
