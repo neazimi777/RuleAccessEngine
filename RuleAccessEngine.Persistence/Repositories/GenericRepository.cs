@@ -17,11 +17,11 @@ namespace RuleAccessEngine.Persistence.Repositories
 
         public async Task<IReadOnlyList<T>> GetAllAsync() => await DbContext.Set<T>().ToListAsync();
 
-        public async Task<T?> GetAsync(int id) => await DbContext.Set<T>().FindAsync(id);
+        public async Task<T?> GetAsync(Guid id) => await DbContext.Set<T>().FindAsync(id);
 
-        public async Task<bool> ExistsAsync(int id) => await GetAsync(id) != null;
+        public async Task<bool> ExistsAsync(Guid id) => await GetAsync(id) != null;
 
-        public async Task<bool> IsExist(int id) => await ExistsAsync(id);
+        public async Task<bool> IsExist(Guid id) => await ExistsAsync(id);
 
         public T Add(T entity) => EntityOrNull(DbContext.Set<T>().Add(entity));
 
@@ -35,9 +35,9 @@ namespace RuleAccessEngine.Persistence.Repositories
 
         public T Update(T entity) => EntityOrNull(DbContext.Set<T>().Update(entity));
 
-        public T Create(T entity) => Add(entity); //DbContext.Set<T>().Add(entity);
+        public T Create(T entity) => Add(entity); 
 
-        public T Delete(T entity) => Remove(entity); //DbContext.Set<T>().Remove(entity);
+        public T Delete(T entity) => Remove(entity); 
 
         public void AddRange(IEnumerable<T> entities) => DbContext.Set<T>().AddRange(entities);
 

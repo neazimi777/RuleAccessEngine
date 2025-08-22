@@ -7,9 +7,9 @@ namespace RuleAccessEngine.Domain.Repositories
         IQueryable<T> QueryAllAsNoTracking();
         IQueryable<T> QueryByConditionAsNoTracking(Expression<Func<T, bool>> expression);
         Task<IReadOnlyList<T>> GetAllAsync();
-        Task<T?> GetAsync(int id);
-        Task<bool> ExistsAsync(int id);
-        Task<bool> IsExist(int id);
+        Task<T?> GetAsync(Guid id);
+        Task<bool> ExistsAsync(Guid id);
+        Task<bool> IsExist(Guid id);
         T Add(T entity);
         T Remove(T entity);
         T Update(T entity);
