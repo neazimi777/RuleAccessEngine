@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RuleAccessEngine.Domain.Enums;
 using RuleAccessEngine.DomainService.Abstractions;
-using RuleAccessEngine.DomainService.EvaluatorStrategy;
+using RuleAccessEngine.DomainService.RuleEvaluator.EvaluatorStrategy;
 using RuleAccessEngine.Dto;
 
-namespace RuleAccessEngine.DomainService
+namespace RuleAccessEngine.DomainService.RuleEvaluator
 {
     public class RuleEvaluatorFactory : IRuleEvaluatorFactory
     {

@@ -1,9 +1,4 @@
 ﻿using RuleAccessEngine.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RuleAccessEngine.Domain
 {
@@ -14,6 +9,7 @@ namespace RuleAccessEngine.Domain
         public string Condition { get; set; } = string.Empty;
         public RuleType Type { get; set; } = RuleType.Expression;
         public bool IsActive { get; set; } = true;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     }
