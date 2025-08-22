@@ -1,4 +1,5 @@
 ﻿using DynamicExpresso;
+using RuleAccessEngine.Domain.Repositories;
 using RuleAccessEngine.DomainService.Abstractions;
 using RuleAccessEngine.Dto;
 using System.Data;
@@ -7,13 +8,23 @@ namespace RuleAccessEngine.DomainService.RuleEvaluator.EvaluatorStrategy
 {
     public class ExpressionRuleEvaluator : IRuleEvaluatorService
     {
-        public EvaluateResponseDto Evaluate(EvaluateRequestDto evaluateRequestDto)
+        private readonly IRuleRepository _ruleRepository;
+        public ExpressionRuleEvaluator(IRuleRepository ruleRepository)
         {
-            if (!evaluateRequestDto.Rule.IsActive)
-                return new(false, Reason: $"Rule '{evaluateRequestDto.Rule.Name}' is inactive.");
+            _ruleRepository = ruleRepository;
+        }
+        public async Task<EvaluateResponseDto> Evaluate(EvaluateRequestDto evaluateRequestDto)
+        {
+            var rule = await _ruleRepository.GetAsync(evaluateRequestDto.RuleID);
 
-            if (string.IsNullOrWhiteSpace(evaluateRequestDto.Rule.Condition))
-                return new(false, Error: $"Rule '{evaluateRequestDto.Rule.Name}' has empty condition.");
+            if (rule == null)
+                return new EvaluateResponseDto(false, "No rules provided.");
+
+            if (!rule.IsActive)
+                return new(false, Reason: $"Rule '{rule.Name}' is inactive.");
+
+            if (string.IsNullOrWhiteSpace(rule.Condition))
+                return new(false, Error: $"Rule '{rule.Name}' has empty condition.");
 
             try
             {
@@ -21,15 +32,15 @@ namespace RuleAccessEngine.DomainService.RuleEvaluator.EvaluatorStrategy
 
                 interpreter.SetVariable("req", evaluateRequestDto.Request);
 
-                var ok = interpreter.Eval<bool>(evaluateRequestDto.Rule.Condition);
+                var ok = interpreter.Eval<bool>(rule.Condition);
 
                 return ok
-                    ? new(true, Reason: $"Rule '{evaluateRequestDto.Rule.Name}' matched.")
-                    : new(false, Reason: $"Rule '{evaluateRequestDto.Rule.Name}' not matched.");
+                    ? new(true, Reason: $"Rule '{rule.Name}' matched.")
+                    : new(false, Reason: $"Rule '{rule.Name}' not matched.");
             }
             catch (Exception ex)
             {
-                return new(false, Error: $"Evaluation error in rule '{evaluateRequestDto.Rule.Name}': {ex.Message}");
+                return new(false, Error: $"Evaluation error in rule '{rule.Name}': {ex.Message}");
             }
 
         }

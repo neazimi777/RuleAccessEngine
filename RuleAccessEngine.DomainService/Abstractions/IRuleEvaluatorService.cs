@@ -4,6 +4,6 @@ namespace RuleAccessEngine.DomainService.Abstractions
 {
     public interface IRuleEvaluatorService
     {
-        public EvaluateResponseDto Evaluate(EvaluateRequestDto evaluateRequestDto);
+        public Task<EvaluateResponseDto> Evaluate(EvaluateRequestDto evaluateRequestDto);
     }
 }

@@ -2,7 +2,6 @@
 using RuleAccessEngine.Domain.Enums;
 using RuleAccessEngine.DomainService.Abstractions;
 using RuleAccessEngine.DomainService.RuleEvaluator.EvaluatorStrategy;
-using RuleAccessEngine.Dto;
 
 namespace RuleAccessEngine.DomainService.RuleEvaluator
 {
@@ -11,14 +10,14 @@ namespace RuleAccessEngine.DomainService.RuleEvaluator
         private readonly IServiceProvider _sp;
         public RuleEvaluatorFactory(IServiceProvider sp) => _sp = sp;
 
-        public IRuleEvaluatorService Create(RuleDto rule)
+        public IRuleEvaluatorService Create(RuleType ruleType)
         {
-            return rule.Type switch
+            return ruleType switch
             {
                 RuleType.Expression => _sp.GetRequiredService<ExpressionRuleEvaluator>(),
                 //RuleType.Specification => _sp.GetRequiredService<SpecificationRuleEvaluatorService>(),
                 //RuleType.External => _sp.GetRequiredService<ExternalServiceRuleEvaluatorService>(),
-                _ => throw new NotSupportedException($"Unsupported rule type: {rule.Type}")
+                _ => throw new NotSupportedException($"Unsupported rule type: {ruleType}")
             };
 
         }
