@@ -22,9 +22,15 @@ namespace RuleAccessEngine.Persistence.Repositories
         public async Task<bool> ExistsAsync(Guid id) => await GetAsync(id) != null;
 
         public async Task<bool> IsExist(Guid id) => await ExistsAsync(id);
-
-        public T Add(T entity) => EntityOrNull(DbContext.Set<T>().Add(entity));
-
+        public async Task<T> CreateAsync(T entity)
+        {
+           var result = await DbContext.Set<T>().AddAsync(entity);
+            return EntityOrNull(result);
+        }
+        public T Create(T entity)
+        {
+           return EntityOrNull(DbContext.Set<T>().Add(entity));
+        }
         private static T EntityOrNull(EntityEntry<T>? ee)
         {
             if (ee != null) return ee.Entity;
@@ -35,13 +41,10 @@ namespace RuleAccessEngine.Persistence.Repositories
 
         public T Update(T entity) => EntityOrNull(DbContext.Set<T>().Update(entity));
 
-        public T Create(T entity) => Add(entity); 
-
         public T Delete(T entity) => Remove(entity); 
 
-        public void AddRange(IEnumerable<T> entities) => DbContext.Set<T>().AddRange(entities);
+        public void CreateRange(IEnumerable<T> entities) => DbContext.Set<T>().AddRange(entities);
 
-        /// <inheritdoc cref="DbSet{TEntity}.RemoveRange(TEntity[])"/>
         public void RemoveRange(IEnumerable<T> entities) => DbContext.Set<T>().RemoveRange(entities);
     }
 }
