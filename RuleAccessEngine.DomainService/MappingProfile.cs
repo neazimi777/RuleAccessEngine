@@ -9,6 +9,7 @@ namespace RuleAccessEngine.DomainService
         public MappingProfile()
         {
             CreateMap<Rule, RuleDto>().ReverseMap();
+            CreateMap<EvaluateResult, EvaluateResponseDto>().ReverseMap();
         }
     }
 }
