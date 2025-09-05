@@ -16,7 +16,7 @@ public class RequestResponseLoggingMiddleware
         var stopwatch = Stopwatch.StartNew();
         var request = await FormatRequest(context.Request);
 
-       
+
         var correlationId = context.TraceIdentifier;
         context.Response.Headers.Add("X-Correlation-Id", correlationId);
 
