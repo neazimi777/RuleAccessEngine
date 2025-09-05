@@ -3,10 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RuleAccessEngine.Domain.Repositories;
 using RuleAccessEngine.Persistence.Repositories;
-using System.Reflection;
-using System;
-using Serilog.Sinks.Elasticsearch;
 using Serilog;
+using Serilog.Sinks.Elasticsearch;
 
 namespace RuleAccessEngine.Persistence
 {
